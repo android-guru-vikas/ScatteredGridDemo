@@ -11,7 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
-import com.vikas.scatteredgriddemo.*
+import com.vikas.scatteredgriddemo.LiciousDemoApplication
+import com.vikas.scatteredgriddemo.R
 import com.vikas.scatteredgriddemo.databinding.ActivityBaseBinding
 import com.vikas.scatteredgriddemo.model.LiciousViewModel
 import com.vikas.scatteredgriddemo.model.LiciousViewModelFactory

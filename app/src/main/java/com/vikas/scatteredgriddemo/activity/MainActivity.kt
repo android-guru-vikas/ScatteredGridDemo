@@ -1,10 +1,10 @@
 package com.vikas.scatteredgriddemo.activity
 
 import android.os.Bundle
-import android.text.TextUtils
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.google.gson.Gson
-import com.vikas.scatteredgriddemo.*
+import com.vikas.scatteredgriddemo.LiciousDemoApplication
+import com.vikas.scatteredgriddemo.R
 import com.vikas.scatteredgriddemo.adapter.ScatteredFoodsAdapter
 import com.vikas.scatteredgriddemo.model.FoodItems
 import com.vikas.scatteredgriddemo.model.LiciousViewModel
@@ -26,11 +26,11 @@ class MainActivity : BaseActivity<LiciousViewModel>() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         liciousViewModel = viewModel as LiciousViewModel
-
         val jsonString: String? = AppUtils.loadSettingsJsonFile(pContext)
-        if (!TextUtils.isEmpty(jsonString)) {
-            val gson = Gson()
-            val foodItems = gson.fromJson<FoodItems>(jsonString, FoodItems::class.java)
+        Timber.d("Inside onCreate jsonString : %s", jsonString)
+
+        liciousViewModel?.loadItems(jsonString)?.observe(this, Observer<FoodItems?> { foodItems: FoodItems? ->
+            Timber.d("Inside loadItems : %s", foodItems)
             val filters = foodItems?.data?.filters
             if (!filters.isNullOrEmpty()) {
                 allSlotsTv.text = filters[0]?.title
@@ -46,6 +46,6 @@ class MainActivity : BaseActivity<LiciousViewModel>() {
                 foodItems?.data?.products as MutableList<Product?>?
             )
             itemsRv?.adapter = foodsAdapter
-        }
+        })
     }
 }

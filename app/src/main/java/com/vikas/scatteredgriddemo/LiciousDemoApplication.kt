@@ -1,6 +1,7 @@
 package com.vikas.scatteredgriddemo
 
 import android.app.Application
+import timber.log.Timber
 
 class LiciousDemoApplication : Application() {
 
@@ -16,6 +17,6 @@ class LiciousDemoApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+        Timber.plant(Timber.DebugTree())
     }
 }
