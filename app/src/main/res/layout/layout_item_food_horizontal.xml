@@ -106,6 +106,7 @@
                 android:paddingTop="@dimen/_6sdp"
                 android:paddingEnd="@dimen/_4sdp"
                 android:paddingBottom="@dimen/_6sdp"
+                android:text="ADD TO CART"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_6sdp"
                 app:layout_constraintEnd_toEndOf="parent"
