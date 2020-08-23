@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#76797F"
-                    android:textSize="@dimen/_9sdp"
+                    android:textSize="@dimen/_7sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:textColor="#3D3D3D"
-                    android:textSize="@dimen/_9sdp"
+                    android:textSize="@dimen/_7sdp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/weightTv" />
@@ -87,10 +87,10 @@
                     android:id="@+id/totalPriceTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/_3sdp"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:textColor="#AEAEB0"
-                    android:textSize="@dimen/_9sdp"
+                    android:textSize="@dimen/_7sdp"
                     app:layout_constraintStart_toEndOf="@+id/priceTv"
                     app:layout_constraintTop_toBottomOf="@+id/weightTv" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -111,7 +111,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_6sdp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintHorizontal_weight="0.7"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
