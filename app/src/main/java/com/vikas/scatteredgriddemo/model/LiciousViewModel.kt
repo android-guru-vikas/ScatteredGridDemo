@@ -1,27 +1,20 @@
 package com.vikas.scatteredgriddemo.model
 
-import android.app.Application
-import android.text.TextUtils
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.gson.Gson
-import com.vikas.scatteredgriddemo.LiciousDemoApplication
-import com.vikas.scatteredgriddemo.utils.AppUtils
-import timber.log.Timber
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import com.vikas.scatteredgriddemo.utils.Constants
 
-class LiciousViewModel constructor(application: Application) : AndroidViewModel(application) {
+class LiciousViewModel(state: SavedStateHandle) : ViewModel() {
 
-    private var modelLiveData: MutableLiveData<FoodItems?>? = null
+    private val savedStateHandle = state
 
+    fun saveFoodItems(foodItems: String?) {
+        savedStateHandle.set(Constants.KEY_FOOD_ITEMS, foodItems)
+    }
 
-    fun loadItems(jsonString: String?): LiveData<FoodItems?>? {
-        modelLiveData = MutableLiveData<FoodItems?>()
-        if (!TextUtils.isEmpty(jsonString)) {
-            val gson = Gson()
-            val foodItems = gson.fromJson<FoodItems>(jsonString, FoodItems::class.java)
-            modelLiveData?.value = foodItems
-        }
-        return modelLiveData
+    fun getFoodItems(): LiveData<String?>? {
+        return savedStateHandle?.getLiveData<String?>(Constants.KEY_FOOD_ITEMS)
     }
 }

@@ -6,7 +6,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_4sdp">
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_4sdp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/thumbnailImg"
@@ -30,7 +31,6 @@
             android:paddingEnd="@dimen/_6sdp"
             android:paddingBottom="@dimen/_4sdp"
             android:scaleType="centerCrop"
-            android:text="45% Off"
             android:textColor="@color/dark_pink"
             android:textSize="@dimen/_6sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,8 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
-            android:text="This is test title"
-            android:textColor="#696969"
+            android:textColor="#434242"
             android:textSize="@dimen/_11ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/thumbnailImg" />
@@ -67,8 +66,8 @@
                     android:id="@+id/weightTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="This is test title"
                     android:textColor="#76797F"
+                    android:textSize="@dimen/_9sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,9 +76,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:text="This is test title"
                     android:textColor="#3D3D3D"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/_9sdp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/weightTv" />
@@ -90,9 +88,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_4sdp"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:text="This is test title"
                     android:textColor="#AEAEB0"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/_9sdp"
                     app:layout_constraintStart_toEndOf="@+id/priceTv"
                     app:layout_constraintTop_toBottomOf="@+id/weightTv" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -109,7 +106,6 @@
                 android:paddingTop="@dimen/_6sdp"
                 android:paddingEnd="@dimen/_4sdp"
                 android:paddingBottom="@dimen/_6sdp"
-                android:text="ADD TO CART"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_6sdp"
                 app:layout_constraintEnd_toEndOf="parent"

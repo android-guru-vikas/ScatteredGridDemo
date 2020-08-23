@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit
  * Created by Vikas on 1/13/18.
  */
 @GlideModule
-class SparkGlideModule : AppGlideModule() {
+class LiciousGlideModule : AppGlideModule() {
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         builder?.setLogLevel(Log.DEBUG)
         val memoryCacheSizeBytes = 1024 * 1024 * 500 // 500mb

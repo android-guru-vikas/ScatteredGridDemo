@@ -51,7 +51,6 @@ class ScatteredFoodsAdapter(context: BaseActivity<*>?, resultList: MutableList<P
         fun bindData(item: Product?) {
             try {
                 if (item != null) {
-
                     val vto = binding?.thumbnailImg?.viewTreeObserver
                     vto?.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
                         override fun onPreDraw(): Boolean {
@@ -65,18 +64,16 @@ class ScatteredFoodsAdapter(context: BaseActivity<*>?, resultList: MutableList<P
 
                     binding?.titleTv?.text = item?.product_master?.pr_name
                     binding?.weightTv?.text = "Net wt. " + item?.product_master?.net
-                    binding?.priceTv?.text = AppUtils.roundToTwoDigit((item.product_pricing?.unit_gram?.let {
+                    binding?.priceTv?.text = "₹ " + AppUtils.roundToTwoDigit((item.product_pricing?.unit_gram?.let {
                         item.product_pricing?.price_gram?.times(it)
                     }).toString()?.toDouble())
 
-                    binding?.totalPriceTv?.text = item.product_pricing?.base_price?.toDouble()?.let {
+                    binding?.totalPriceTv?.text = "₹ " + item.product_pricing?.base_price?.toDouble()?.let {
                         AppUtils.roundToTwoDigit(
                             it
                         )
                     }
                     binding?.totalPriceTv?.paintFlags = binding?.totalPriceTv?.paintFlags?.or(Paint.STRIKE_THRU_TEXT_FLAG)!!
-
-//                    GlideAppController.setProductImage(binding?.thumbnailImg, activity, item?.product_merchantdising?.pr_image)
                 }
             } catch (e: Exception) {
                 Timber.d("Inside exception : " + e.message)

@@ -16,7 +16,6 @@ import com.vikas.scatteredgriddemo.R
 import com.vikas.scatteredgriddemo.databinding.ActivityBaseBinding
 import com.vikas.scatteredgriddemo.model.LiciousViewModel
 import com.vikas.scatteredgriddemo.model.LiciousViewModelFactory
-import com.vikas.scatteredgriddemo.utils.AppToast
 import timber.log.Timber
 
 abstract class BaseActivity<VM : ViewModel?> : AppCompatActivity() {
@@ -26,9 +25,6 @@ abstract class BaseActivity<VM : ViewModel?> : AppCompatActivity() {
     @JvmField
     var pContext: Context? = null
     var pTAG = Activity::class.java.name
-
-    @JvmField
-    var pAppToast: AppToast? = null
 
     @JvmField
     var viewModel: ViewModel? = null
@@ -43,13 +39,13 @@ abstract class BaseActivity<VM : ViewModel?> : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_base)
 
 
-        val sparkViewModelFactory =
+        val liciousViewModelFactory =
             LiciousDemoApplication.getInstance()?.let {
                 LiciousViewModelFactory(
                     it
                 )
             }
-        viewModel = ViewModelProviders.of(this, sparkViewModelFactory)[getViewModel() as Class<VM>]
+        viewModel = ViewModelProviders.of(this, liciousViewModelFactory)[getViewModel() as Class<VM>]
 
         liciousViewModel = viewModel as LiciousViewModel?
 
@@ -92,6 +88,5 @@ abstract class BaseActivity<VM : ViewModel?> : AppCompatActivity() {
 
     private fun initObjects() {
         pContext = this
-        pAppToast = AppToast.getInstance()
     }
 }
