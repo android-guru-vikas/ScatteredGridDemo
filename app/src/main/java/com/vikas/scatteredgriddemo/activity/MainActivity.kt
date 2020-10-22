@@ -1,57 +1,99 @@
 package com.vikas.scatteredgriddemo.activity
 
 import android.os.Bundle
-import android.text.TextUtils
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.google.gson.Gson
+import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.vikas.scatteredgriddemo.adapter.MainAdapter
 import com.vikas.scatteredgriddemo.R
-import com.vikas.scatteredgriddemo.adapter.ScatteredFoodsAdapter
-import com.vikas.scatteredgriddemo.model.FoodItems
-import com.vikas.scatteredgriddemo.model.LiciousViewModel
-import com.vikas.scatteredgriddemo.model.Product
-import com.vikas.scatteredgriddemo.utils.AppUtils
+import com.vikas.scatteredgriddemo.adapter.UserHomeItemsAdapter
+import com.vikas.scatteredgriddemo.model.AppViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import timber.log.Timber
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
-class MainActivity : BaseActivity<LiciousViewModel>() {
 
-    private var mLayoutManager: StaggeredGridLayoutManager? = null
-    private var foodsAdapter: ScatteredFoodsAdapter? = null
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
 
-    override fun getViewModel(): Class<LiciousViewModel> {
-        return LiciousViewModel::class.java
-    }
+    private val mainAdapter = UserHomeItemsAdapter(this)
+    private var coroutineJob: Job? = null
+
+    private val appViewModel: AppViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        liciousViewModel = viewModel as LiciousViewModel
-        val jsonString: String? = AppUtils.loadSettingsJsonFile(pContext)
-        Timber.d("Inside onCreate jsonString : %s", jsonString)
-        if (!TextUtils.isEmpty(jsonString)) {
-            liciousViewModel?.saveFoodItems(jsonString)
+
+        coroutineJob?.cancel()
+
+        itemsRv.layoutManager = LinearLayoutManager(this)
+        itemsRv.adapter = mainAdapter
+
+        coroutineJob = lifecycleScope.launch {
+            /*@OptIn(ExperimentalCoroutinesApi::class)
+            mainViewModel.imageData().collectLatest {
+                it.let {
+                    mainAdapter.submitData(it)
+                }
+            }*/
+
+
+
+            appViewModel?.imageData().collect {
+                it.let {
+                    mainAdapter.submitData(it)
+                }
+            }
+
         }
 
-        liciousViewModel?.getFoodItems()?.observe(this, Observer<String?> { foodItems: String? ->
-            Timber.d("Inside loadItems : %s", foodItems)
-            val gson = Gson()
-            val foodItems = gson.fromJson<FoodItems>(jsonString, FoodItems::class.java)
-            val filters = foodItems?.data?.filters
-            if (!filters.isNullOrEmpty()) {
-                allSlotsTv.text = filters[0]?.title
-                todaySlotTv.text = filters[1]?.title
+        subscribeObservers()
+    }
+
+    private fun subscribeObservers() {
+        mainAdapter.addLoadStateListener { loadState ->
+
+            /*
+            * loadState.refresh - represents the load state for loading the PagingData for the first time.
+              loadState.prepend - represents the load state for loading data at the start of the list.
+              loadState.append - represents the load state for loading data at the end of the list.
+            * */
+
+            if (loadState.refresh is LoadState.Loading ||
+                loadState.append is LoadState.Loading)
+                showProgressBar(true)
+            else {
+                showProgressBar(false)
+
+                // If we have an error, show a toast
+                val errorState = when {
+                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                    loadState.prepend is LoadState.Error ->  loadState.prepend as LoadState.Error
+                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                    else -> null
+                }
+                errorState?.let {
+                    Toast.makeText(this, it.error.toString(), Toast.LENGTH_LONG).show()
+                }
+
             }
-            toolBarTv.text = foodItems?.data?.title
-            itemHeaderTv.text = foodItems?.data?.info_message
-            itemCountTv.text = "(" + foodItems?.data?.info_badge + ")"
-            mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            itemsRv?.layoutManager = mLayoutManager
-            foodsAdapter = ScatteredFoodsAdapter(
-                this,
-                foodItems?.data?.products as MutableList<Product?>?
-            )
-            itemsRv?.adapter = foodsAdapter
-        })
+        }
+    }
+
+
+    // UPDATE UI ----
+    private fun showProgressBar(display : Boolean)
+    {
+        if(!display)
+            progress_bar.visibility = View.GONE
+        else
+            progress_bar.visibility = View.VISIBLE
     }
 }

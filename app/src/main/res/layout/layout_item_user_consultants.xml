@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/clParent"
+        android:layout_marginBottom="@dimen/_8sdp">
+
+        <LinearLayout
+            android:id="@+id/llPostCreator"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingBottom="@dimen/_2sdp"
+            android:weightSum="10"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/expertImgView"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_44sdp"
+                android:layout_weight="1.4"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="@dimen/_4sdp"
+                android:src="@android:drawable/ic_menu_gallery" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clUserDetail"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_weight="6.8"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingBottom="@dimen/_4sdp">
+
+                <RelativeLayout
+                    android:id="@+id/rlName"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center_vertical"
+                    app:layout_constraintBottom_toTopOf="@id/tvBookedTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/expertNameTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/_6sdp"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:includeFontPadding="false"
+                        android:lines="1"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/_14sdp" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvBookedTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:textColor="@color/cardview_dark_background"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/rlName"
+                    app:layout_constraintTop_toBottomOf="@id/rlName" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvMessage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_weight="1.8"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:ellipsize="end"
+                android:gravity="end|center_vertical"
+                android:text="CHAT"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBio" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvBookingStats"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintHorizontal_weight="7"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tvBookings"
+            app:layout_constraintTop_toBottomOf="@id/llPostCreator" />
+
+        <TextView
+            android:id="@+id/tvBookings"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:gravity="end|center_vertical"
+            android:text="BOOKINGS"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_13sdp"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvBookingStats" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
